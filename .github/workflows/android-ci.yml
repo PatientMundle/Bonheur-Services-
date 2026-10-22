@@ -16,6 +16,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: 'platform-tools'
       - name: Install Android SDK 36
         run: sdkmanager "platforms;android-36" "build-tools;36.0.0"
       - uses: gradle/actions/setup-gradle@v4
@@ -25,7 +27,7 @@ jobs:
         run: gradle :app:assembleDebug :app:bundleDebug --no-daemon --stacktrace
       - uses: actions/upload-artifact@v4
         with:
-          name: bonheur-formations-debug-unsigned-for-play
+          name: bonheur-formations-debug-not-for-play-upload
           path: |
             app/build/outputs/apk/debug/*.apk
             app/build/outputs/bundle/debug/*.aab
