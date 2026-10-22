@@ -1,0 +1,42 @@
+plugins {
+    id 'com.android.application'
+}
+
+def catalogUrl = providers.gradleProperty('BONHEUR_CATALOG_URL').orElse('').get()
+
+android {
+    namespace 'com.bonheur.formations'
+    compileSdk 36
+
+    defaultConfig {
+        applicationId 'com.bonheur.formations'
+        minSdk 26
+        targetSdk 36
+        versionCode 1
+        versionName '0.1.0-dev'
+        buildConfigField 'String', 'CATALOG_URL', '"' + catalogUrl.replace('\\','\\\\').replace('"','\\"') + '"'
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix '.dev'
+            versionNameSuffix '-debug'
+        }
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    implementation 'com.android.billingclient:billing:9.1.0'
+}
